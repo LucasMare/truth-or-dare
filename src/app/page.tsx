@@ -142,7 +142,7 @@ export default function TruthOrDareSpinner() {
       className="relative min-h-screen flex"
       style={{
         background: `linear-gradient(
-          to bottom right,
+          135deg,
           navy 45%,
           rgba(0, 0, 128, 0.8) 50%,
           rgba(220, 20, 60, 0.8) 50%,
