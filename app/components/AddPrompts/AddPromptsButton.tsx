@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import AddPromptsMenu from "./AddPromptsMenu";
+import { PromptsListsProvider } from "./PromptsLists";
 
 export default function AddPromptsButton() {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -41,7 +42,10 @@ export default function AddPromptsButton() {
           />
 
           {/* ✉️ Menu */}
-          <AddPromptsMenu onClose={handleClose} />
+             <PromptsListsProvider>
+              <AddPromptsMenu onClose={handleClose} />
+             </PromptsListsProvider>
+          
         </>
       )}
     </>
