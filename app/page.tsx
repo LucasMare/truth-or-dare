@@ -1,11 +1,7 @@
-import TruthButton from "@/app/components/TruthButton";
-import DareButton from "@/app/components/DareButton";
+import MainMenu from "@/app/components/MainMenu";
 
 export default function Home() {
   return (
-      <main className="relative w-full h-screen">
-        <TruthButton />
-        <DareButton />
-      </main>
+  <MainMenu />
   );
 }

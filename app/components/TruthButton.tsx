@@ -2,7 +2,11 @@
 
 import React, { useLayoutEffect, useState } from "react";
 
-export default function TruthButton() {
+type TruthButtonProps = {
+  onReady?: () => void;
+};
+
+export default function TruthButton({ onReady }: TruthButtonProps) {
   const [angleDeg, setAngleDeg] = useState<number | null>(null);
   const [translate, setTranslate] = useState<{ x: number; y: number } | null>(
     null
@@ -32,12 +36,16 @@ export default function TruthButton() {
       const dy = Math.sin(angleRad) * distance;
 
       setTranslate({ x: -dx, y: -dy }); // move along that diagonal
+
+      if (onReady) {
+      onReady();
+    }
     };
 
     updateDiagonalPosition();
     window.addEventListener("resize", updateDiagonalPosition);
     return () => window.removeEventListener("resize", updateDiagonalPosition);
-  }, []);
+  }, [onReady]);
 
   const handleClick = () => {
     alert("Truth button clicked!");
@@ -66,7 +74,7 @@ export default function TruthButton() {
           textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)", // adds a subtle drop shadow
         }}
       >
-        Truth
+        TRUTH
       </span>
     </div>
   );

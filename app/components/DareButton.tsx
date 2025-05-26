@@ -2,7 +2,11 @@
 
 import React, { useLayoutEffect, useState } from "react";
 
-export default function DareButton() {
+type DareButtonProps = {
+  onReady?: () => void;
+};
+
+export default function DareButton({onReady}: DareButtonProps) {
   const [angleDeg, setAngleDeg] = useState<number | null>(null);
   const [translate, setTranslate] = useState<{ x: number; y: number } | null>(
     null
@@ -33,12 +37,16 @@ export default function DareButton() {
       const dy = Math.sin(angleRad) * distance;
 
       setTranslate({ x: dx, y: -dy }); // move along that diagonal
+      
+      if (onReady) {
+      onReady();
+    }
     };
 
     updateDiagonalPosition();
     window.addEventListener("resize", updateDiagonalPosition);
     return () => window.removeEventListener("resize", updateDiagonalPosition);
-  }, []);
+  }, [onReady]);
 
   const handleClick = () => {
     alert("Dare button clicked!");
@@ -65,7 +73,7 @@ export default function DareButton() {
           textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)", // adds a subtle drop shadow
         }}
       >
-        Dare
+        DARE
       </span>
     </div>
   );
