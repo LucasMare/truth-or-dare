@@ -1,0 +1,73 @@
+"use client";
+
+import React, { useLayoutEffect, useState } from "react";
+
+export default function TruthButton() {
+  const [angleDeg, setAngleDeg] = useState<number | null>(null);
+  const [translate, setTranslate] = useState<{ x: number; y: number } | null>(
+    null
+  );
+
+  const calculateTopLeftToBottomRightAngle = () => {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    const x1 = 0;
+    const y1 = 0;
+    const x2 = screenWidth;
+    const y2 = screenHeight;
+
+    const angle = Math.atan2(y2 - y1, x2 - x1);
+    return angle;
+  };
+
+  useLayoutEffect(() => {
+    const updateDiagonalPosition = () => {
+      const angleRad = calculateTopLeftToBottomRightAngle();
+      const angleDegrees = angleRad * (180 / Math.PI);
+      setAngleDeg(-angleDegrees); // rotate along bottom-right to top-left diagonal
+
+      const distance = window.innerWidth * 0.1;
+      const dx = Math.cos(angleRad) * distance;
+      const dy = Math.sin(angleRad) * distance;
+
+      setTranslate({ x: -dx, y: -dy }); // move along that diagonal
+    };
+
+    updateDiagonalPosition();
+    window.addEventListener("resize", updateDiagonalPosition);
+    return () => window.removeEventListener("resize", updateDiagonalPosition);
+  }, []);
+
+  const handleClick = () => {
+    alert("Truth button clicked!");
+  };
+
+  if (angleDeg === null || translate === null) return null;
+
+  return (
+    <div
+      onClick={handleClick}
+      className="fixed top-0 left-0 w-full h-screen flex items-center justify-center cursor-pointer"
+      style={{
+        clipPath: "polygon(0 0, 100% 0, 0 100%)",
+        background: "radial-gradient(circle at top left, #3b82f6 0%, #2563eb 40%, #1e40af 80%)",
+      }}
+    >
+
+
+
+      <span
+        className="text-white font-semibold select-none"
+        style={{
+          fontSize: "14rem", // 96px large font size
+          transform: `translate(${translate.x}px, ${translate.y}px) rotate(${angleDeg}deg)`,
+          display: "inline-block",
+          textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)", // adds a subtle drop shadow
+        }}
+      >
+        Truth
+      </span>
+    </div>
+  );
+}
