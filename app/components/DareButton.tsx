@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type DareButtonProps = {
   onReady?: () => void;
@@ -26,7 +26,7 @@ export default function DareButton({onReady}: DareButtonProps) {
     return angle;
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateDiagonalPosition = () => {
       const angleRad = calculateBottomLeftToTopRightAngle();
       const angleDegrees = angleRad * (180 / Math.PI);

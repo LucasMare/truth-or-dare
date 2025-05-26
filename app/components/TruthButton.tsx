@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type TruthButtonProps = {
   onReady?: () => void;
@@ -25,7 +25,7 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
     return angle;
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateDiagonalPosition = () => {
       const angleRad = calculateTopLeftToBottomRightAngle();
       const angleDegrees = angleRad * (180 / Math.PI);
