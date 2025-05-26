@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Modal from "./Modal";
 
 type TruthButtonProps = {
   onReady?: () => void;
@@ -11,6 +12,9 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
   const [translate, setTranslate] = useState<{ x: number; y: number } | null>(
     null
   );
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [question, setQuestion] = useState<string>("");
 
   const calculateTopLeftToBottomRightAngle = () => {
     const screenWidth = window.innerWidth;
@@ -48,12 +52,15 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
   }, [onReady]);
 
   const handleClick = () => {
-    alert("Truth button clicked!");
+    setIsModalOpen(true);
   };
+
+   const closeModal = () => setIsModalOpen(false);
 
   if (angleDeg === null || translate === null) return null;
 
   return (
+    <>
     <div
       onClick={handleClick}
       className="fixed top-0 left-0 w-full h-screen flex items-center justify-center cursor-pointer"
@@ -77,5 +84,13 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
         TRUTH
       </span>
     </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        type="truth"
+        question={question}
+      />
+    </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Modal from "./Modal";
 
 type DareButtonProps = {
   onReady?: () => void;
@@ -11,6 +12,9 @@ export default function DareButton({onReady}: DareButtonProps) {
   const [translate, setTranslate] = useState<{ x: number; y: number } | null>(
     null
   );
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [dare, setDare] = useState<string>("");
 
   // Calculate angle from bottom-left (0, screenHeight) to top-right (screenWidth, 0)
   const calculateBottomLeftToTopRightAngle = () => {
@@ -49,12 +53,15 @@ export default function DareButton({onReady}: DareButtonProps) {
   }, [onReady]);
 
   const handleClick = () => {
-    alert("Dare button clicked!");
+    setIsModalOpen(true);
   };
+
+  const closeModal = () => setIsModalOpen(false);
 
   if (angleDeg === null || translate === null) return null;
 
   return (
+    <>
     <div
       onClick={handleClick}
       className="fixed top-0 left-0 w-full h-screen flex items-center justify-center cursor-pointer"
@@ -76,5 +83,12 @@ export default function DareButton({onReady}: DareButtonProps) {
         DARE
       </span>
     </div>
+    <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        type="dare"
+        question={dare}
+      />
+    </>
   );
 }
