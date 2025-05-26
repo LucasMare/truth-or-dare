@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "build:gh": "GITHUB_PAGES=true next build",
+    "build:gh": "NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "npm run build:gh && gh-pages -d out"
+    "deploy": "NODE_ENV=production next build && touch out/.nojekyll && gh-pages -d out"
+
   },
   "dependencies": {
     "next": "15.3.2",

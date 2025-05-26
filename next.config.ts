@@ -1,19 +1,17 @@
 import type { NextConfig } from "next";
 
-const isGithubPages = process.env.GITHUB_PAGES === 'true';
+const isProd = process.env.NODE_ENV === 'production';
+const repoName = 'truth-or-dare';
 
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: isGithubPages ? '/truth-or-dare' : '',
-  assetPrefix: isGithubPages ? '/truth-or-dare/' : '',
+  basePath: isProd ? `/${repoName}` : '',
+  assetPrefix: isProd ? `/${repoName}/` : '',
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
-  // Ensure static files are served correctly
-  experimental: {
-    esmExternals: false,
-  },
+  distDir: 'out',
 };
 
 export default nextConfig;
