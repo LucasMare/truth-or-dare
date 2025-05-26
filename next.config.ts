@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   output: 'export', 
   basePath: isGithubPages ? '/truth-or-dare' : '',
   assetPrefix: isGithubPages ? '/truth-or-dare/' : '',
+  trailingSlash: true,
 };
 
 export default nextConfig;
