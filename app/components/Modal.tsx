@@ -69,11 +69,9 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    // Start animation
     fireworkInterval = setInterval(createFirework, 600);
     animate();
 
-    // Stop after 10 seconds
     const stopTimeout = setTimeout(() => {
       clearInterval(fireworkInterval);
     }, 10000);
@@ -89,33 +87,33 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
 
   const typeColor = type === "truth" ? "text-blue-600" : "text-red-600";
   const bgColor = type === "truth" ? "bg-blue-100" : "bg-red-100";
+  const promptColor = type === "truth" ? "text-blue-800" : "text-red-800";
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] flex items-center justify-center backdrop-blur-sm pointer-events-auto"
       style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
     >
-      {/* Fireworks Canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full z-0 pointer-events-none"
       />
 
-      {/* Modal Box */}
       <div
-        className={`relative p-6 rounded-2xl shadow-xl max-w-md w-full mx-4 z-10 ${bgColor} fade-in-up`}
+        className={`relative p-10 rounded-2xl shadow-2xl max-w-2xl w-full mx-4 z-10 ${bgColor} fade-in-up`}
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-xl font-bold"
+          className="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold"
           aria-label="Close"
         >
           &times;
         </button>
-        <h2 className={`text-3xl font-bold mb-4 text-center uppercase ${typeColor}`}>
+        <h2 className={`text-4xl font-bold text-center uppercase ${typeColor}  mb-4`}>
           {type}
         </h2>
-        <p className="text-center text-lg text-gray-800">{question}</p>
+        <hr className="border-t border-gray-300 mb-6" />
+        <p className={`text-center text-3xl ${promptColor}`}>{question}</p>
       </div>
     </div>
   );

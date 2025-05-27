@@ -52,6 +52,7 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
   }, [onReady]);
 
   const handleClick = () => {
+    setQuestion("Ce pula mea ai mancat dimineata?");
     setIsModalOpen(true);
   };
 

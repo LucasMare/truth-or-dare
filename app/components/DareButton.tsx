@@ -53,6 +53,7 @@ export default function DareButton({onReady}: DareButtonProps) {
   }, [onReady]);
 
   const handleClick = () => {
+    setDare("Fa schimb de haine cu alta persoana aleasa la intamplare");
     setIsModalOpen(true);
   };
 
