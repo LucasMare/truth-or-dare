@@ -56,7 +56,7 @@ export const PromptsListsProvider = ({ children }: { children: ReactNode }) => {
           {
             text:
               "Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend?",
-            used: false,
+            used: true,
           },
         ]);
       }
@@ -67,7 +67,7 @@ export const PromptsListsProvider = ({ children }: { children: ReactNode }) => {
         {
           text:
             "Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend?",
-          used: false,
+          used: true,
         },
       ]);
     }

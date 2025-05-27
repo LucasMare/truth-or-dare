@@ -56,61 +56,65 @@ export default function TruthsPromptsTable({ children }: PromptsTableProps) {
       >
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {truths.map((truth, index) => {
-  const isHovered = hoveredIndex === index;
-  return (
-    <li
-      key={index}
-      style={{
-        position: "relative",
-        width: "97%",
-        margin: "0.4rem auto",
-        padding: "0.6rem 1rem",
-        paddingRight: "40px",
-        backgroundColor: "rgba(255, 255, 255, 0.1)",
-        borderRadius: "12px",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
-        wordWrap: "break-word",
-        textAlign: "center",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        opacity: isHovered ? 0.6 : 1,
-        transition: "opacity 0.2s ease",
-      }}
-    >
-      {truth.text}
+            const isHovered = hoveredIndex === index;
+            return (
+              <li
+                key={index}
+                style={{
+                  position: "relative",
+                  width: "97%",
+                  margin: "0.4rem auto",
+                  padding: "0.6rem 1rem",
+                  paddingRight: "40px",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  borderRadius: "12px",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                  wordWrap: "break-word",
+                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  opacity: isHovered ? 0.6 : 1,
+                  transition: "opacity 0.2s ease",
+                  textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)", // adds a subtle drop shadow
+                  borderWidth: "2px",
+                  borderColor: "black",
+                  borderStyle: truth.used ? "dashed" : "solid",
+                }}
+              >
+                {truth.text}
 
-      <button
-        onClick={() => deleteTruth(index)}
-        onMouseEnter={() => setHoveredIndex(index)}
-        onMouseLeave={() => setHoveredIndex(null)}
-        style={{
-          position: "absolute",
-          right: "8px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          width: "28px",
-          height: "28px",
-          borderRadius: "6px",
-          border: "none",
-          color: "white",
-          cursor: "pointer",
-          fontWeight: "bold",
-          fontSize: "16px",
-          lineHeight: "1",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          userSelect: "none",
-          backgroundColor: "transparent", // Make trash can button transparent
-        }}
-        aria-label={`Delete truth: ${truth.text}`}
-      >
-        🗑️
-      </button>
-    </li>
-  );
-})}
+                <button
+                  onClick={() => deleteTruth(index)}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  style={{
+                    position: "absolute",
+                    right: "8px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: "28px",
+                    height: "28px",
+                    borderRadius: "6px",
+                    border: "none",
+                    color: "white",
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    lineHeight: "1",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    userSelect: "none",
+                    backgroundColor: "transparent", // Make trash can button transparent
+                  }}
+                  aria-label={`Delete truth: ${truth.text}`}
+                >
+                  🗑️
+                </button>
+              </li>
+            );
+          })}
 
         </ul>
         {children}
