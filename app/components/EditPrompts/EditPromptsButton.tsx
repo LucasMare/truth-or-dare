@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import AddPromptsMenu from "./EditPromptsMenu";
+import AddPromptsMenu from "./AddPromptsMenu";
 import { PromptsListsProvider } from "./PromptsLists";
 
 export default function AddPromptsButton() {
@@ -27,7 +27,7 @@ export default function AddPromptsButton() {
             zIndex: 50,
           }}
         >
-          + Add Prompts
+          + Edit Prompts
         </button>
       )}
 

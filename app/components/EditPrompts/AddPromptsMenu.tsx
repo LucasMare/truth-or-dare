@@ -2,6 +2,7 @@
 
 import React from "react";
 import TruthsPromptsTable from "./TruthsPromptsTable"; // adjust path as needed
+import ResetLocalStorageButton from "../ResetPromptsLocalStorage";
 
 type AddPromptsMenuProps = {
     onClose: () => void;
@@ -37,7 +38,7 @@ export default function AddPromptsMenu({ onClose }: AddPromptsMenuProps) {
             >
                 ✕
             </button>
-
+            <ResetLocalStorageButton />
             {/* Prompts Table below the close button */}
             <TruthsPromptsTable />
         </div>
