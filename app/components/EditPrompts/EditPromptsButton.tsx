@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import AddPromptsMenu from "./AddPromptsMenu";
+import AddPromptsMenu from "./EditPromptsMenu";
 import { PromptsListsProvider } from "./PromptsLists";
 
 export default function AddPromptsButton() {

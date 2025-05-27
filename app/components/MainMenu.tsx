@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import TruthButton from "@/app/components/TruthButton";
 import DareButton from "@/app/components/DareButton";
 import OrComponent from "@/app/components/OrComponent";
-import AddPromptsButton from "@/app/components/AddPrompts/AddPromptsButton";
+import AddPromptsButton from "@/app/components/EditPrompts/EditPromptsButton";
 import LoadingScreen from "@/app/components/LoadingScreen";
 
 export default function MainMenu() {

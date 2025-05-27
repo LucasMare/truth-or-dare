@@ -12,11 +12,18 @@ const PromptsListsContext = createContext<PromptsListsContextType | undefined>(u
 export const PromptsListsProvider = ({ children }: { children: ReactNode }) => {
   const [dares, setDares] = useState<string[]>([
     "Do 10 jumping jacks",
-    "Dance in front of everyone",
+    "Dance in front of everyone ",
   ]);
   const [truths, setTruths] = useState<string[]>([
     "What's your biggest fear?",
-    "Have you ever lied to a friend?",
+    "Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend?",
+    "What's your biggest fear?",
+    "Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend?",
+    "What's your biggest fear?",
+    "Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend?",
+    "What's your biggest fear?",
+    "Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend? Have you ever lied to a friend?",
+    "What's your biggest fear?",
   ]);
 
   return (
