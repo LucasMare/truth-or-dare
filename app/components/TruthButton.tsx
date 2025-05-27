@@ -2,19 +2,22 @@
 
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
+import { usePromptsLists } from "./EditPrompts/PromptsLists";
+
 
 type TruthButtonProps = {
   onReady?: () => void;
 };
 
 export default function TruthButton({ onReady }: TruthButtonProps) {
+  const { truths, setTruths } = usePromptsLists();
   const [angleDeg, setAngleDeg] = useState<number | null>(null);
   const [translate, setTranslate] = useState<{ x: number; y: number } | null>(
     null
   );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [question, setQuestion] = useState<string>("");
+  const [truth, setTruth] = useState<string>("");
 
   const calculateTopLeftToBottomRightAngle = () => {
     const screenWidth = window.innerWidth;
@@ -52,7 +55,23 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
   }, [onReady]);
 
   const handleClick = () => {
-    setQuestion("Ce pula mea ai mancat dimineata?");
+    const unusedTruths = truths.filter((d) => !d.used);
+    if (unusedTruths.length === 0) {
+      // All dares used, maybe reset or show a message
+      alert("No Questions available");
+      return;
+    }
+    const randomIndex = Math.floor(Math.random() * unusedTruths.length);
+    const chosenTruth = unusedTruths[randomIndex];
+
+    setTruth(chosenTruth.text);
+    setIsModalOpen(true);
+
+    // Mark the chosen dare as used in the dares list
+    const updatedTruths = truths.map((d) =>
+      d.text === chosenTruth.text ? { ...d, used: true } : d
+    );
+    setTruths(updatedTruths);
     setIsModalOpen(true);
   };
 
@@ -90,7 +109,7 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
         isOpen={isModalOpen}
         onClose={closeModal}
         type="truth"
-        question={question}
+        question={truth}
       />
     </>
   );

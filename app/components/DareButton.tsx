@@ -2,12 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
+import { usePromptsLists } from "./EditPrompts/PromptsLists";
+
 
 type DareButtonProps = {
   onReady?: () => void;
 };
 
 export default function DareButton({onReady}: DareButtonProps) {
+  const { dares, setDares } = usePromptsLists();
   const [angleDeg, setAngleDeg] = useState<number | null>(null);
   const [translate, setTranslate] = useState<{ x: number; y: number } | null>(
     null
@@ -53,7 +56,23 @@ export default function DareButton({onReady}: DareButtonProps) {
   }, [onReady]);
 
   const handleClick = () => {
-    setDare("Fa schimb de haine cu alta persoana aleasa la intamplare");
+    const unusedDares = dares.filter((d) => !d.used);
+    if (unusedDares.length === 0) {
+      // All dares used, maybe reset or show a message
+      alert("No Dares available");
+      return;
+    }
+    const randomIndex = Math.floor(Math.random() * unusedDares.length);
+    const chosenDare = unusedDares[randomIndex];
+
+    setDare(chosenDare.text);
+    setIsModalOpen(true);
+
+    // Mark the chosen dare as used in the dares list
+    const updatedDares = dares.map((d) =>
+      d.text === chosenDare.text ? { ...d, used: true } : d
+    );
+    setDares(updatedDares);
     setIsModalOpen(true);
   };
 
