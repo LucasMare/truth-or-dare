@@ -19,7 +19,7 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
+    // eslint-disable-next-line
     let particles: any[] = [];
     let animationFrameId: number;
     let fireworkInterval: NodeJS.Timeout;
@@ -69,6 +69,7 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
       animationFrameId = requestAnimationFrame(animate);
     };
 
+    // eslint-disable-next-line
     fireworkInterval = setInterval(createFirework, 600);
     animate();
 
