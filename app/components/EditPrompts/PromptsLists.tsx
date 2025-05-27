@@ -35,14 +35,14 @@ export const PromptsListsProvider = ({ children }: { children: ReactNode }) => {
       } else {
         setDares([
           { text: "Do 10 jumping jacks", used: false },
-          { text: "Dance in front of everyone", used: false },
+          { text: "Dance in front of everyone", used: true },
         ]);
       }
     } catch (e) {
       console.warn("Failed to parse dares from localStorage:", e);
       setDares([
         { text: "Do 10 jumping jacks", used: false },
-        { text: "Dance in front of everyone", used: false },
+        { text: "Dance in front of everyone", used: true },
       ]);
     }
 

@@ -4,11 +4,11 @@ import React from "react";
 import TruthsPromptsTable from "./TruthsPromptsTable"; // adjust path as needed
 import ResetLocalStorageButton from "../ResetPromptsLocalStorage";
 
-type AddPromptsMenuProps = {
+type EditPromptsMenuProps = {
     onClose: () => void;
 };
 
-export default function AddPromptsMenu({ onClose }: AddPromptsMenuProps) {
+export default function EditPromptsMenu({ onClose }: EditPromptsMenuProps) {
     return (
         <div
             style={{
@@ -23,7 +23,7 @@ export default function AddPromptsMenu({ onClose }: AddPromptsMenuProps) {
                 borderRadius: "12px",
                 padding: "1rem",
                 overflowY: "auto",
-                zIndex: 60,
+                zIndex: 100,
             }}
         >
             <button
