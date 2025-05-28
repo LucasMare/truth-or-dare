@@ -105,7 +105,7 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold"
+          className="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold cursor-pointer"
           aria-label="Close"
         >
           &times;
