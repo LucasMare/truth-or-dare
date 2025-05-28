@@ -59,7 +59,6 @@ export default function TruthsPromptsTable({ children }: PromptsTableProps) {
       >
         <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
           {truths.map((truth, index) => {
-            const isHovered = hoveredIndex === index;
             return (
               <li
                 key={index}

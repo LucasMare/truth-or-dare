@@ -16,15 +16,14 @@ export default function EditPromptsMenu({ onClose }: EditPromptsMenuProps) {
                 position: "fixed",
                 top: "50%",
                 left: "50%",
-                width: "55vw", // wider for side-by-side layout
+                width: "55vw",
                 height: "80vh",
                 transform: "translate(-50%, -50%)",
-                background:
-                    "linear-gradient(to right, #3b82f6 0%, #ef4444 100%)",
+                background: "linear-gradient(to right, #3b82f6 0%, #ef4444 100%)",
                 color: "black",
                 borderRadius: "12px",
                 padding: "0rem 1rem 1rem 1rem",
-                overflow: "hidden", // prevent inner scrollbars conflict
+                overflow: "hidden",
                 zIndex: 60,
                 display: "flex",
                 flexDirection: "column",
@@ -32,7 +31,7 @@ export default function EditPromptsMenu({ onClose }: EditPromptsMenuProps) {
         >
             <button
                 onClick={onClose}
-                className="text-gray-600 hover:text-black font-bold px-3 py-1 cursor-pointer absolute"
+                className="text-white hover:text-black font-bold px-3 py-1 cursor-pointer absolute"
                 style={{
                     top: "4px",
                     right: "3px",
@@ -45,7 +44,7 @@ export default function EditPromptsMenu({ onClose }: EditPromptsMenuProps) {
 
             <ResetLocalStorageButton />
 
-            {/* Container for side-by-side layout */}
+            {/* Side-by-side container */}
             <div
                 style={{
                     display: "flex",
