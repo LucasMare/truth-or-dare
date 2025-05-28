@@ -34,7 +34,7 @@ export default function EditPlayersButton() {
         <>
           {/* ⛱️ Backdrop */}
           <div
-            className="fixed inset-0 z-40 pointer-events-auto backdrop-blur-sm"
+            className="fixed inset-0 z-60 pointer-events-auto backdrop-blur-sm"
             style={{
               backgroundColor: "rgba(0, 0, 0, 0.5)",
             }}

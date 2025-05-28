@@ -8,6 +8,7 @@ import EditPromptsButton from "@/app/components/EditPrompts/EditPromptsButton";
 import EditPlayersButton from "@/app/components/EditPlayers/EditPlayersButton";
 import LoadingScreen from "@/app/components/LoadingScreen";
 import { PromptsListsProvider } from "./EditPrompts/PromptsLists";
+import { PlayersProvider } from "./EditPlayers/PlayerListProvider";
 
 
 
@@ -21,15 +22,17 @@ export default function MainMenu() {
     <main className="relative w-full h-screen">
       {!isReady && <LoadingScreen />}
       <PromptsListsProvider>
-        <TruthButton onReady={() => setTruthReady(true)} />
-        <DareButton onReady={() => setDareReady(true)} />
-        {isReady && (
-          <div className="fixed top-4 left-4 flex gap-4 z-50">
-            <EditPromptsButton />
-            <EditPlayersButton />
-          </div>
-        )}
-        {isReady && <OrComponent />}
+        <PlayersProvider>
+          <TruthButton onReady={() => setTruthReady(true)} />
+          <DareButton onReady={() => setDareReady(true)} />
+          {isReady && (
+            <div className="fixed top-4 left-4 flex gap-4 z-50">
+              <EditPromptsButton />
+              <EditPlayersButton />
+            </div>
+          )}
+          {isReady && <OrComponent />}
+        </PlayersProvider>
       </PromptsListsProvider>
     </main>
   );
