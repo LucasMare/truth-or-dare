@@ -41,7 +41,7 @@ export default function TruthsPromptsTable({ children }: PromptsTableProps) {
     <div style={{ position: "relative", width: "50%", height: "63%", marginTop: "2rem" }}>
       {showTopArrow && <div style={arrowStyle("top")}>▲</div>}
       {showBottomArrow && <div style={arrowStyle("bottom")}>▼</div>}
-
+    
       <div
         ref={containerRef}
         className="hide-scrollbar"
@@ -51,7 +51,9 @@ export default function TruthsPromptsTable({ children }: PromptsTableProps) {
           borderRadius: "8px",
           padding: "1rem",
           background:
-            "radial-gradient(circle at center,rgb(39, 83, 155) 0%,rgb(42, 89, 190) 40%, #1e40af 80%)",
+            "radial-gradient(circle at center,rgb(39, 83, 155) 0%,rgb(80, 111, 179) 40%, #1e40af 80%, rgb(16, 54, 148) 90%)",
+          borderWidth: "3px",
+          borderColor: "rgb(8, 34, 77)",
           color: "white",
         }}
       >

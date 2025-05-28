@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import TruthsPromptsTable from "./TruthsPromptsTable"; // adjust path as needed
+import TruthsPromptsTable from "./TruthsPromptsTable";
+import DaresPromptsTable from "./DaresPromptsTable";
 import ResetLocalStorageButton from "../ResetPromptsLocalStorage";
 
 type EditPromptsMenuProps = {
@@ -15,15 +16,18 @@ export default function EditPromptsMenu({ onClose }: EditPromptsMenuProps) {
                 position: "fixed",
                 top: "50%",
                 left: "50%",
-                width: "50vw",
+                width: "55vw", // wider for side-by-side layout
                 height: "80vh",
                 transform: "translate(-50%, -50%)",
-                background: "white",
+                background:
+                    "linear-gradient(to right, #3b82f6 0%, #ef4444 100%)",
                 color: "black",
                 borderRadius: "12px",
-                padding: "1rem",
-                overflowY: "auto",
+                padding: "0rem 1rem 1rem 1rem",
+                overflow: "hidden", // prevent inner scrollbars conflict
                 zIndex: 60,
+                display: "flex",
+                flexDirection: "column",
             }}
         >
             <button
@@ -38,9 +42,22 @@ export default function EditPromptsMenu({ onClose }: EditPromptsMenuProps) {
             >
                 ✕
             </button>
+
             <ResetLocalStorageButton />
-            {/* Prompts Table below the close button */}
-            <TruthsPromptsTable />
+
+            {/* Container for side-by-side layout */}
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    gap: "1rem",
+                    height: "100%",
+                    marginTop: "1rem",
+                }}
+            >
+                <TruthsPromptsTable />
+                <DaresPromptsTable />
+            </div>
         </div>
     );
 }
