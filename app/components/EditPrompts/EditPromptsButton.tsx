@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import EditPromptsMenu from "./EditPromptsMenu";
 
-export default function AddPromptsButton() {
+export default function EditPromptsButton() {
   const [menuVisible, setMenuVisible] = useState(false);
 
   const handleClick = () => {
