@@ -49,10 +49,10 @@ export default function DaresPromptsTable({ children }: PromptsTableProps) {
                     borderRadius: "8px",
                     padding: "1rem",
                     background:
-                        "radial-gradient(circle at center, rgb(220, 20, 60) 0%, rgb(196, 77, 77) 40%, rgb(139, 0, 0) 80%, rgb(100, 0, 0) 90%)",
+                        "radial-gradient(circle at center, rgb(220, 20, 60) 0%, rgb(194, 68, 68) 40%, rgb(139, 0, 0) 80%, rgb(116, 7, 7) 90%)",
                     color: "white",
                     borderWidth: "3px",
-                    borderColor: "rgb(51, 4, 4)",
+                    borderColor: "rgb(59, 11, 11)",
                 }}
             >
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
