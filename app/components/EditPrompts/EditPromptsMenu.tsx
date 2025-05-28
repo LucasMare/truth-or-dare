@@ -23,7 +23,7 @@ export default function EditPromptsMenu({ onClose }: EditPromptsMenuProps) {
                 borderRadius: "12px",
                 padding: "1rem",
                 overflowY: "auto",
-                zIndex: 100,
+                zIndex: 60,
             }}
         >
             <button

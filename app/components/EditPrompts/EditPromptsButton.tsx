@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import AddPromptsMenu from "./EditPromptsMenu";
-import { PromptsListsProvider } from "./PromptsLists";
+import EditPromptsMenu from "./EditPromptsMenu";
 
 export default function AddPromptsButton() {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -42,10 +41,7 @@ export default function AddPromptsButton() {
           />
 
           {/* ✉️ Menu */}
-             <PromptsListsProvider>
-              <AddPromptsMenu onClose={handleClose} />
-             </PromptsListsProvider>
-          
+              <EditPromptsMenu onClose={handleClose} />
         </>
       )}
     </>

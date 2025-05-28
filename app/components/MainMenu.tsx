@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import TruthButton from "@/app/components/TruthButton";
 import DareButton from "@/app/components/DareButton";
 import OrComponent from "@/app/components/OrComponent";
-import AddPromptsButton from "@/app/components/EditPrompts/EditPromptsButton";
+import EditPromptsButton from "@/app/components/EditPrompts/EditPromptsButton";
 import LoadingScreen from "@/app/components/LoadingScreen";
 import Leaderboard from "@/app/components/EditPlayers/Leaderboard";
 import { PromptsListsProvider } from "./EditPrompts/PromptsLists";
@@ -30,10 +30,9 @@ export default function MainMenu() {
       <PromptsListsProvider>
         <TruthButton onReady={() => setTruthReady(true)} />
         <DareButton onReady={() => setDareReady(true)} />
-      </PromptsListsProvider>
-
-      {isReady && <AddPromptsButton />}
+      {isReady && <EditPromptsButton />}
       {isReady && <OrComponent />}
+      </PromptsListsProvider>
       <button
         onClick={() => setShowLeaderboard(true)}
         className="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 z-40 zIndex-50"

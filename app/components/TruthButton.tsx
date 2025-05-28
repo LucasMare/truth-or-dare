@@ -45,8 +45,8 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
       setTranslate({ x: -dx, y: -dy }); // move along that diagonal
 
       if (onReady) {
-      onReady();
-    }
+        onReady();
+      }
     };
 
     updateDiagonalPosition();
@@ -57,7 +57,7 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
   const handleClick = () => {
     const unusedTruths = truths.filter((d) => !d.used);
     if (unusedTruths.length === 0) {
-      // All dares used, maybe reset or show a message
+      // All truth used, maybe reset or show a message
       alert("No Questions available");
       return;
     }
@@ -67,7 +67,7 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
     setTruth(chosenTruth.text);
     setIsModalOpen(true);
 
-    // Mark the chosen dare as used in the dares list
+    // Mark the chosen truth as used in the truths list
     const updatedTruths = truths.map((d) =>
       d.text === chosenTruth.text ? { ...d, used: true } : d
     );
@@ -75,35 +75,35 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
     setIsModalOpen(true);
   };
 
-   const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => setIsModalOpen(false);
 
   if (angleDeg === null || translate === null) return null;
 
   return (
     <>
-    <div
-      onClick={handleClick}
-      className="fixed top-0 left-0 w-full h-screen flex items-center justify-center cursor-pointer"
-      style={{
-        clipPath: "polygon(0 0, 100% 0, 0 100%)",
-        background: "radial-gradient(circle at top left, #3b82f6 0%, #2563eb 40%, #1e40af 80%)",
-      }}
-    >
-
-
-
-      <span
-        className="text-white font-semibold select-none"
+      <div
+        onClick={handleClick}
+        className="fixed top-0 left-0 w-full h-screen flex items-center justify-center cursor-pointer"
         style={{
-          fontSize: "14rem", // 96px large font size
-          transform: `translate(${translate.x}px, ${translate.y}px) rotate(${angleDeg}deg)`,
-          display: "inline-block",
-          textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)", // adds a subtle drop shadow
+          clipPath: "polygon(0 0, 100% 0, 0 100%)",
+          background: "radial-gradient(circle at top left, #3b82f6 0%, #2563eb 40%, #1e40af 80%)",
         }}
       >
-        TRUTH
-      </span>
-    </div>
+
+
+
+        <span
+          className="text-white font-semibold select-none"
+          style={{
+            fontSize: "14rem", // 96px large font size
+            transform: `translate(${translate.x}px, ${translate.y}px) rotate(${angleDeg}deg)`,
+            display: "inline-block",
+            textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)", // adds a subtle drop shadow
+          }}
+        >
+          TRUTH
+        </span>
+      </div>
 
       <Modal
         isOpen={isModalOpen}
