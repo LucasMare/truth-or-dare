@@ -9,6 +9,7 @@ import EditPlayersButton from "@/app/components/EditPlayers/EditPlayersButton";
 import LoadingScreen from "@/app/components/LoadingScreen";
 import { PromptsListsProvider } from "./EditPrompts/PromptsLists";
 import { PlayersProvider } from "./EditPlayers/PlayerListProvider";
+import TurnDisplay from "@/app/components/EditPlayers/TurnDisplay";
 
 
 
@@ -32,6 +33,7 @@ export default function MainMenu() {
             </div>
           )}
           {isReady && <OrComponent />}
+          {isReady && <TurnDisplay />}
         </PlayersProvider>
       </PromptsListsProvider>
     </main>

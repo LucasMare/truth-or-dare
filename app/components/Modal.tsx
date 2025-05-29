@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { usePlayers, PlayersProvider } from "@/app/components/EditPlayers/PlayerListProvider";
+import WheelOfNames from "@/app/components/EditPlayers/WheelOfNames"; // adjust path if needed
 
 type ModalProps = {
   isOpen: boolean;
@@ -11,6 +13,7 @@ type ModalProps = {
 
 export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { nextTurn } = usePlayers();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -19,10 +22,10 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    // eslint-disable-next-line
+
     let particles: any[] = [];
     let animationFrameId: number;
-    let fireworkInterval: NodeJS.Timeout;
+    let fireworkInterval: ReturnType<typeof setInterval>;
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -69,7 +72,6 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    // eslint-disable-next-line
     fireworkInterval = setInterval(createFirework, 600);
     animate();
 
@@ -90,6 +92,11 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
   const bgColor = type === "truth" ? "bg-blue-100" : "bg-red-100";
   const promptColor = type === "truth" ? "text-blue-800" : "text-red-800";
 
+  const handleClose = () => {
+    onClose();
+    nextTurn();
+  };
+
   return (
     <div
       className="fixed inset-0 z-[9999] flex items-center justify-center backdrop-blur-sm pointer-events-auto"
@@ -104,18 +111,23 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
         className={`relative p-10 rounded-2xl shadow-2xl max-w-2xl w-full mx-4 z-10 ${bgColor} fade-in-up`}
       >
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold cursor-pointer"
           aria-label="Close"
         >
           &times;
         </button>
-        <h2 className={`text-4xl font-bold text-center uppercase ${typeColor}  mb-4`}>
+        <h2 className={`text-4xl font-bold text-center uppercase ${typeColor} mb-4`}>
           {type}
         </h2>
         <hr className="border-t border-gray-300 mb-6" />
         <p className={`text-center text-3xl ${promptColor}`}>{question}</p>
       </div>
+
+      {/* Wheel of Names fixed at bottom-right */}
+      <PlayersProvider>
+        <WheelOfNames />
+      </PlayersProvider>
     </div>
   );
 }
