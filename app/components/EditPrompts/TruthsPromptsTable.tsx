@@ -8,44 +8,20 @@ type PromptsTableProps = {
 export default function TruthsPromptsTable({ children }: PromptsTableProps) {
   const { truths, setTruths } = usePromptsLists();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [showTopArrow, setShowTopArrow] = useState(false);
-  const [showBottomArrow, setShowBottomArrow] = useState(false);
   const [hoveredTrashIndex, setHoveredTrashIndex] = useState<number | null>(null);
-
-  // Track which item is hovered (store index or null)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const handleScroll = () => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const threshold = 2;
-
-    setShowTopArrow(el.scrollTop > threshold);
-    setShowBottomArrow(el.scrollTop + el.clientHeight < el.scrollHeight - threshold);
-  };
-
-  useEffect(() => {
-    handleScroll();
-    const el = containerRef.current;
-    if (!el) return;
-    el.addEventListener("scroll", handleScroll);
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const deleteTruth = (indexToDelete: number) => {
     setTruths(truths.filter((_, i) => i !== indexToDelete));
   };
 
   return (
-    <div style={{ position: "relative", width: "50%", height: "63%", marginTop: "2rem" }}>
-      {showTopArrow && <div style={arrowStyle("top")}>▲</div>}
-      {showBottomArrow && <div style={arrowStyle("bottom")}>▼</div>}
-    
+    <div style={{ position: "relative", width: "50%", height: "100%", paddingTop: "2.5rem" }}>
       <div
         ref={containerRef}
         className="hide-scrollbar"
         style={{
+          position: "relative",
           height: "100%",
           overflowY: "auto",
           borderRadius: "8px",
@@ -94,7 +70,6 @@ export default function TruthsPromptsTable({ children }: PromptsTableProps) {
                     );
                     setTruths(updatedTruths);
                   }}
-
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   style={{
@@ -108,7 +83,7 @@ export default function TruthsPromptsTable({ children }: PromptsTableProps) {
                     justifyContent: "center",
                     cursor: "pointer",
                     padding: 0,
-                    marginRight: "0.8rem",  // margin to right
+                    marginRight: "0.8rem",
                   }}
                   aria-label={`Reset truth: ${truth.text}`}
                 >
@@ -124,9 +99,7 @@ export default function TruthsPromptsTable({ children }: PromptsTableProps) {
                 </button>
 
                 {/* The truth text in the center */}
-                <span style={{ flex: 1, textAlign: "center" }}>
-                  {truth.text}
-                </span>
+                <span style={{ flex: 1, textAlign: "center" }}>{truth.text}</span>
 
                 {/* Trash button on the right */}
                 <button
@@ -145,7 +118,7 @@ export default function TruthsPromptsTable({ children }: PromptsTableProps) {
                     userSelect: "none",
                     backgroundColor: "transparent",
                     padding: 0,
-                    marginLeft: "0.8rem",  // margin to left
+                    marginLeft: "0.8rem",
                   }}
                   aria-label={`Delete truth: ${truth.text}`}
                 >
@@ -168,28 +141,12 @@ export default function TruthsPromptsTable({ children }: PromptsTableProps) {
                     />
                   </svg>
                 </button>
-
-
               </li>
-
             );
           })}
-
-
         </ul>
         {children}
       </div>
     </div>
   );
 }
-
-const arrowStyle = (position: "top" | "bottom"): React.CSSProperties => ({
-  position: "absolute",
-  [position]: "4px",
-  right: "2px",
-  fontSize: "1.25rem",
-  color: "white",
-  opacity: 0.6,
-  pointerEvents: "none",
-  zIndex: 10,
-});

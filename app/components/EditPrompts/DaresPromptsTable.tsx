@@ -36,7 +36,7 @@ export default function DaresPromptsTable({ children }: PromptsTableProps) {
   };
 
   return (
-    <div style={{ position: "relative", width: "50%", height: "63%", marginTop: "2rem" }}>
+    <div style={{ position: "relative", width: "50%", height: "100%", paddingTop: "2.5rem" }}>
       {showTopArrow && <div style={arrowStyle("top")}>▲</div>}
       {showBottomArrow && <div style={arrowStyle("bottom")}>▼</div>}
 

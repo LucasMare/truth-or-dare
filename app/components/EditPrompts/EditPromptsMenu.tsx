@@ -3,7 +3,10 @@
 import React from "react";
 import TruthsPromptsTable from "./TruthsPromptsTable";
 import DaresPromptsTable from "./DaresPromptsTable";
-import ResetLocalStorageButton from "../ResetPromptsLocalStorage";
+import AddPromptsBox from "./AddPromptsBox";
+import RefreshAllButton from "./RefreshAllButton";
+import DeleteAllTruths from "./DeleteAllTruths";
+import DeleteAllDares from "./DeleteAllDares";
 
 type EditPromptsMenuProps = {
     onClose: () => void;
@@ -29,33 +32,78 @@ export default function EditPromptsMenu({ onClose }: EditPromptsMenuProps) {
                 flexDirection: "column",
             }}
         >
+            {/* ❌ Close Button */}
             <button
                 onClick={onClose}
                 className="text-white hover:text-black font-bold px-3 py-1 cursor-pointer absolute"
                 style={{
-                    top: "4px",
-                    right: "3px",
-                    fontSize: "1rem",
                     position: "absolute",
+                    top: "10px",
+                    right: "10px",
+                    background: "transparent",
+                    border: "none",
+                    fontSize: "1rem", // Match visual size of the ✕
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    lineHeight: "1",
+                    padding: "0.25rem", // Optional: gives a larger hit area without affecting layout
+                    display: "inline-block", // Prevents collapse, ensures the area wraps around content
+                    zIndex: 1000,
+                    
                 }}
             >
                 ✕
             </button>
 
-            <ResetLocalStorageButton />
 
-            {/* Side-by-side container */}
+            {/* Centered heading */}
+            <h2
+                style={{
+                    position: "absolute",
+                    top: "6px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    margin: 0,
+                    fontSize: "2rem",
+                    color: "white",
+                    fontWeight: "bold",
+                    textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)",
+                }}
+            >
+                Edit Prompts
+            </h2>
+
             <div
                 style={{
                     display: "flex",
-                    flexDirection: "row",
-                    gap: "1rem",
+                    flexDirection: "column",
                     height: "100%",
-                    marginTop: "1rem",
+                    paddingTop: "1rem",
+                    boxSizing: "border-box",
                 }}
             >
-                <TruthsPromptsTable />
-                <DaresPromptsTable />
+                {/* top container: tables */}
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "1rem",
+                        height: "63%",
+                    }}
+                >
+                    <TruthsPromptsTable />
+                    <DaresPromptsTable />
+                </div>
+
+                {/* bottom container: add prompts */}
+                <div style={{ height: "30%" }}>
+                    <AddPromptsBox />
+                </div>
+                <div style={{ height: "7%" }}>
+                    <RefreshAllButton />
+                    <DeleteAllTruths />
+                    <DeleteAllDares />
+                </div>
             </div>
         </div>
     );
