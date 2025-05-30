@@ -1,4 +1,3 @@
-// app/components/EditPlayers/PlayersContext.tsx
 "use client";
 
 import React, {
@@ -18,13 +17,13 @@ type PlayersContextType = {
   nextTurn: () => void;
 };
 
-
 const PlayersContext = createContext<PlayersContextType | undefined>(undefined);
 
 export const PlayersProvider = ({ children }: { children: ReactNode }) => {
   const [players, setPlayers] = useState<string[]>([]);
   const [currentTurnIndex, setCurrentTurnIndex] = useState<number>(0);
   const isInitialMount = useRef(true);
+  const pendingIndex = useRef<number | null>(null);
 
   // Load from localStorage
   useEffect(() => {
@@ -33,8 +32,11 @@ export const PlayersProvider = ({ children }: { children: ReactNode }) => {
       const storedIndex = localStorage.getItem("currentTurnIndex");
 
       if (storedPlayers) {
-        setPlayers(JSON.parse(storedPlayers));
-        setCurrentTurnIndex(storedIndex ? parseInt(storedIndex) : 0);
+        const parsedPlayers = JSON.parse(storedPlayers);
+        setPlayers(parsedPlayers);
+
+        // Store index to apply after players load
+        pendingIndex.current = storedIndex ? parseInt(storedIndex) : 0;
       } else {
         setPlayers(["Player 1", "Player 2"]);
         setCurrentTurnIndex(0);
@@ -46,6 +48,16 @@ export const PlayersProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  // Once players are loaded, apply stored index if available
+  useEffect(() => {
+    if (players.length && pendingIndex.current !== null) {
+      const safeIndex = Math.min(pendingIndex.current, players.length - 1);
+      setCurrentTurnIndex(safeIndex);
+      pendingIndex.current = null;
+    }
+  }, [players]);
+
+  // Ensure index remains in bounds when players change
   useEffect(() => {
     if (players.length === 0) {
       setCurrentTurnIndex(0);
@@ -54,7 +66,7 @@ export const PlayersProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [players, currentTurnIndex]);
 
-  // Save players & turn index
+  // Save players & turn index to localStorage
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -76,7 +88,7 @@ export const PlayersProvider = ({ children }: { children: ReactNode }) => {
         players,
         setPlayers,
         currentTurnIndex,
-        setCurrentTurnIndex, // added here
+        setCurrentTurnIndex,
         nextTurn,
       }}
     >

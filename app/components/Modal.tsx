@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { usePlayers, PlayersProvider } from "@/app/components/EditPlayers/PlayerListProvider";
-import WheelOfNames from "@/app/components/EditPlayers/WheelOfNames"; // adjust path if needed
+import OpenWheelButton from "@/app/components/EditPlayers/WheelButton"; // adjust path if needed
 
 type ModalProps = {
   isOpen: boolean;
@@ -13,7 +13,7 @@ type ModalProps = {
 
 export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const { nextTurn } = usePlayers();
+  const { players, nextTurn } = usePlayers();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -86,8 +86,6 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const typeColor = type === "truth" ? "text-blue-600" : "text-red-600";
   const bgColor = type === "truth" ? "bg-blue-100" : "bg-red-100";
   const promptColor = type === "truth" ? "text-blue-800" : "text-red-800";
@@ -96,6 +94,8 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
     onClose();
     nextTurn();
   };
+
+  if (!isOpen) return null;
 
   return (
     <div
@@ -111,7 +111,10 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
         className={`relative p-10 rounded-2xl shadow-2xl max-w-2xl w-full mx-4 z-10 ${bgColor} fade-in-up`}
       >
         <button
-          onClick={handleClose}
+          onClick={() => {
+            onClose();
+            nextTurn();
+          }}
           className="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold cursor-pointer"
           aria-label="Close"
         >
@@ -124,10 +127,12 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
         <p className={`text-center text-3xl ${promptColor}`}>{question}</p>
       </div>
 
-      {/* Wheel of Names fixed at bottom-right */}
-      <PlayersProvider>
-        <WheelOfNames />
-      </PlayersProvider>
+      {/* Button fixed bottom-left */}
+      {players && players.length > 2 && (
+        <div className="fixed bottom-4 left-4 z-20">
+          <OpenWheelButton />
+        </div>
+      )}
     </div>
   );
 }
