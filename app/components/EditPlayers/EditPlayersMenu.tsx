@@ -9,6 +9,7 @@ import {
   useSensor,
   useSensors,
   KeyboardSensor,
+  DragEndEvent
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -171,17 +172,16 @@ export default function EditPlayersMenu({ onClose }: EditPlayersMenuProps) {
     })
   );
 
-  // eslint-disable-next-line no-console
-  const handleDragEnd = (event: any) => {
-    const { active, over } = event;
-    if (over && active.id !== over.id) {
-      const oldIndex = players.findIndex((_, i) => i.toString() === active.id);
-      const newIndex = players.findIndex((_, i) => i.toString() === over.id);
-      if (oldIndex !== -1 && newIndex !== -1) {
-        setPlayers(arrayMove(players, oldIndex, newIndex));
-      }
+  const handleDragEnd = (event: DragEndEvent) => {
+  const { active, over } = event;
+  if (over && active.id !== over.id) {
+    const oldIndex = players.findIndex((_, i) => i.toString() === active.id);
+    const newIndex = players.findIndex((_, i) => i.toString() === over.id);
+    if (oldIndex !== -1 && newIndex !== -1) {
+      setPlayers(arrayMove(players, oldIndex, newIndex));
     }
-  };
+  }
+};
 
   const [resetHovered, setResetHovered] = useState(false);
 

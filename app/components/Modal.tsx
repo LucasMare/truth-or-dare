@@ -23,10 +23,10 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line
     let particles: any[] = [];
     let animationFrameId: number;
-    let fireworkInterval: ReturnType<typeof setInterval>;
+    let fireworkInterval: NodeJS.Timeout;
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -73,7 +73,7 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line
     fireworkInterval = setInterval(createFirework, 600);
     animate();
 

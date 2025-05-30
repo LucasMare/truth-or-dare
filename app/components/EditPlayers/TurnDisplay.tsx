@@ -15,8 +15,7 @@ export default function TurnDisplay() {
 
     return (
         <div className="fixed bottom-4 right-4 z-30 bg-white/80 text-black px-4 py-2 rounded-2xl shadow-xl border border-gray-300">
-            // eslint-disable-next-line no-console
-            <span className="font-semibold text-lg">🎯 {currentPlayer}'s turn</span>
+            <span className="font-semibold text-lg">🎯 {currentPlayer}&apos;s turn</span>
         </div>
     );
 }

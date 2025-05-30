@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Plugin } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Plugin, ArcElement as ArcElementType } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { usePlayers } from "../EditPlayers/PlayerListProvider"; // adjust path
 
@@ -80,8 +80,7 @@ export default function SpinCircle() {
             ctx.rotate(rotation); // Apply the rotation of the chart
 
             arcs.forEach((arc, i) => {
-                // eslint-disable-next-line no-console
-                const model = arc as any;
+                const model = arc as ArcElementType;
 
                 // Midpoint angle of the arc
                 const angle = (model.startAngle + model.endAngle) / 2;
@@ -116,54 +115,54 @@ export default function SpinCircle() {
         }
     }
 
-return (
-  <div className="fixed inset-0 p-4 z-50 flex items-center justify-center">
-    <div
-      onClick={Rotation} // Make entire wheel clickable here
-      className="relative h-[90vh] w-[90vh] flex items-center justify-center cursor-pointer"
-    >
-      <div className="relative w-full h-full p-4">
-        <Doughnut
-          data={data}
-          options={{
-            rotation: rotationRadians,
-            cutout: "67%",
-            plugins: {
-              legend: { display: false },
-              tooltip: { enabled: false },
-            },
-            animation: isFirstRender.current
-              ? false // Disable animation on first render
-              : {
-                  duration: 4000,
-                  easing: "easeOutQuart",
-                },
-            events: [],
-          }}
-          plugins={[labelPlugin(rotationRadians)]}
-          ref={chartRef}
-        />
+    return (
+        <div className="fixed inset-0 p-4 z-50 flex items-center justify-center">
+            <div
+                onClick={Rotation} // Make entire wheel clickable here
+                className="relative h-[90vh] w-[90vh] flex items-center justify-center cursor-pointer"
+            >
+                <div className="relative w-full h-full p-4">
+                    <Doughnut
+                        data={data}
+                        options={{
+                            rotation: rotationRadians,
+                            cutout: "67%",
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { enabled: false },
+                            },
+                            animation: isFirstRender.current
+                                ? false // Disable animation on first render
+                                : {
+                                    duration: 4000,
+                                    easing: "easeOutQuart",
+                                },
+                            events: [],
+                        }}
+                        plugins={[labelPlugin(rotationRadians)]}
+                        ref={chartRef}
+                    />
 
-        <div
-          id="arrow-icon"
-          className="absolute top-2 md:top-4 left-1/2 transform -translate-x-1/2 text-white rotate-180 pointer-events-none"
-        >
-          <svg
-            className="h-10 w-10 text-white z-20"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            fill="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polygon points="12 2 22 22 2 22"></polygon>
-          </svg>
+                    <div
+                        id="arrow-icon"
+                        className="absolute top-2 md:top-4 left-1/2 transform -translate-x-1/2 text-white rotate-180 pointer-events-none"
+                    >
+                        <svg
+                            className="h-10 w-10 text-white z-20"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            fill="white"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <polygon points="12 2 22 22 2 22"></polygon>
+                        </svg>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-);
+    );
 
 
 }
