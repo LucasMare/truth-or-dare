@@ -173,15 +173,15 @@ export default function EditPlayersMenu({ onClose }: EditPlayersMenuProps) {
   );
 
   const handleDragEnd = (event: DragEndEvent) => {
-  const { active, over } = event;
-  if (over && active.id !== over.id) {
-    const oldIndex = players.findIndex((_, i) => i.toString() === active.id);
-    const newIndex = players.findIndex((_, i) => i.toString() === over.id);
-    if (oldIndex !== -1 && newIndex !== -1) {
-      setPlayers(arrayMove(players, oldIndex, newIndex));
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      const oldIndex = players.findIndex((_, i) => i.toString() === active.id);
+      const newIndex = players.findIndex((_, i) => i.toString() === over.id);
+      if (oldIndex !== -1 && newIndex !== -1) {
+        setPlayers(arrayMove(players, oldIndex, newIndex));
+      }
     }
-  }
-};
+  };
 
   const [resetHovered, setResetHovered] = useState(false);
 
@@ -249,94 +249,97 @@ export default function EditPlayersMenu({ onClose }: EditPlayersMenuProps) {
           strategy={verticalListSortingStrategy}
         >
           <div
-  className="hide-scrollbar"
-  style={{
-    flexGrow: 1,
-    minHeight: 0,
-    overflowY: "auto",
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.75rem",
-    padding: "1rem",
-    border: "2px solid white",
-    borderRadius: "8px",
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    justifyContent: players.length === 0 ? "center" : undefined,
-    alignItems: players.length === 0 ? "center" : undefined,
-  }}
->
-  {players.length === 0 ? (
-    <span style={{ color: "white", fontSize: "1rem", fontStyle: "italic" }}>
-      No players available
-    </span>
-  ) : (
-    players.map((player, index) => (
-      <SortablePlayer
-        key={index}
-        id={index.toString()}
-        index={index}
-        player={player}
-        onUpdate={updatePlayer}
-        onRemove={removePlayer}
-        onFocus={setFocusedIndex}
-        onBlur={(i, value) => {
-          if (value.trim() === "") removePlayer(i);
-          setFocusedIndex(null);
-        }}
-        isFocused={focusedIndex === index}
-        hoveredTrashIndex={hoveredTrashIndex}
-        onHoverTrash={setHoveredTrashIndex}
-        isCurrentTurn={currentTurnIndex === index}
-      />
-    ))
-  )}
-</div>
+            className="hide-scrollbar"
+            style={{
+              flexGrow: 1,
+              minHeight: 0,
+              overflowY: "auto",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.75rem",
+              padding: "1rem",
+              border: "2px solid white",
+              borderRadius: "8px",
+              backgroundColor: "rgba(255, 255, 255, 0.1)",
+              justifyContent: players.length === 0 ? "center" : undefined,
+              alignItems: players.length === 0 ? "center" : undefined,
+            }}
+          >
+            {players.length === 0 ? (
+              <span style={{ color: "white", fontSize: "1rem", fontStyle: "italic", textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)", }}>
+                
+                No players available
+              </span>
+            ) : (
+              players.map((player, index) => (
+                <SortablePlayer
+                  key={index}
+                  id={index.toString()}
+                  index={index}
+                  player={player}
+                  onUpdate={updatePlayer}
+                  onRemove={removePlayer}
+                  onFocus={setFocusedIndex}
+                  onBlur={(i, value) => {
+                    if (value.trim() === "") removePlayer(i);
+                    setFocusedIndex(null);
+                  }}
+                  isFocused={focusedIndex === index}
+                  hoveredTrashIndex={hoveredTrashIndex}
+                  onHoverTrash={setHoveredTrashIndex}
+                  isCurrentTurn={currentTurnIndex === index}
+                />
+              ))
+            )}
+          </div>
 
         </SortableContext>
       </DndContext>
 
-      <div style={{ display: "flex", gap: "0.25rem" , marginTop: "1rem"}}>
-  <button
-    onClick={addPlayer}
-    onMouseEnter={() => setIsHovered(true)}
-    onMouseLeave={() => setIsHovered(false)}
-    style={{
-      flex: 3, // 3 parts width
-      padding: "0.5rem 1rem",
-      backgroundColor: "white",
-      color: isHovered ? "#3b82f6" : "black",
-      fontWeight: "600",
-      borderRadius: "0.5rem",
-      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
-      cursor: "pointer",
-      textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)",
-      transition: "color 0.3s ease",
-    }}
-  >
-    + Add Player
-  </button>
+      <div style={{ display: "flex", gap: "0.25rem", marginTop: "1rem" }}>
+        <button
+          onClick={addPlayer}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          style={{
+            flex: 3, // 3 parts width
+            padding: "0.5rem 1rem",
+            backgroundColor: "white",
+            color: isHovered ? "#3b82f6" : "black",
+            fontWeight: "600",
+            borderRadius: "0.5rem",
+            boxShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
+            cursor: "pointer",
+            textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)",
+            transition: "color 0.3s ease",
+          }}
+        >
+          + Add Player
+        </button>
 
-  <button
-    onClick={() => setCurrentTurnIndex(0)}
-    onMouseEnter={() => setResetHovered(true)}
-    onMouseLeave={() => setResetHovered(false)}
-    style={{
-      flex: 1, // 1 part width
-      padding: "0.5rem 1rem",
-      backgroundColor: resetHovered ? "#b91c1c" : "#ef4444",
-      color: "white",
-      fontWeight: "600",
-      borderRadius: "0.5rem",
-      boxShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
-      cursor: "pointer",
-      textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)",
-      transition: "background-color 0.3s ease",
-    }}
-    title="Reset turn to first player"
-  >
-    Reset Turn
-  </button>
-</div>
+        <button
+          onClick={() => setCurrentTurnIndex(0)}
+          onMouseEnter={() => setResetHovered(true)}
+          onMouseLeave={() => setResetHovered(false)}
+          style={{
+            flex: 1, // 1 part width
+            padding: "0.5rem 1rem",
+            backgroundColor: "white",
+            color: resetHovered ? "#3b82f6" : "black",
+            fontWeight: "600",
+            borderRadius: "0.5rem",
+            boxShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
+            cursor: "pointer",
+            textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)",
+            transition: "color 0.3s ease", // match transition on color
+          }}
+          title="Reset turn to first player"
+        >
+          Reset Turn
+        </button>
+
+
+      </div>
     </div>
   );
 }

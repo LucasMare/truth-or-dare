@@ -112,7 +112,7 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
             onClose();
             nextTurn();
           }}
-          className="absolute top-3 right-4 text-gray-600 hover:text-gray-800 text-3xl font-bold cursor-pointer"
+          className="absolute top-2 right-4 text-gray-400 hover:text-black text-3xl cursor-pointer"
           aria-label="Close"
         >
           &times;
