@@ -1,46 +1,32 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = {
-  triggerKey: number;
-  onClose?: () => void;
+  triggerKey: number; // add this prop
+  onClose: () => void;
 };
 
-export default function NoDaresNotification({ triggerKey, onClose }: Props) {
-  const [visible, setVisible] = useState(false);
+export default function NoQuestionsNotification({ triggerKey, onClose }: Props) {
   const [progress, setProgress] = useState(0);
-  const hasMounted = useRef(false);
 
   useEffect(() => {
-    if (!hasMounted.current) {
-      hasMounted.current = true;
-      return; // skip initial mount
-    }
-
-    setVisible(true);
-    setProgress(0);
-
     let frame = 0;
-    const interval = 50; // ms per frame
-    const duration = 5000; // 5 seconds total
+    const interval = 50; // ms
+    const duration = 5000; // total 5 seconds
     const totalFrames = duration / interval;
 
-    const progressTimer = setInterval(() => {
+    const timer = setInterval(() => {
       frame++;
       setProgress((frame / totalFrames) * 100);
-
       if (frame >= totalFrames) {
-        clearInterval(progressTimer);
-        setVisible(false);
-        if (onClose) onClose();
+        clearInterval(timer);
+        onClose();
       }
     }, interval);
 
-    return () => clearInterval(progressTimer);
-  }, [triggerKey, onClose]);
-
-  if (!visible) return null;
+    return () => clearInterval(timer);
+  }, [triggerKey, onClose]); // <-- watch triggerKey here
 
   return (
     <div
@@ -51,7 +37,7 @@ export default function NoDaresNotification({ triggerKey, onClose }: Props) {
         className="h-1 bg-red-500"
         style={{ width: `${progress}%`, transition: 'width 50ms linear' }}
       />
-      <div className="px-4 py-3 font-medium">No dares available</div>
+      <div className="px-4 py-3 font-medium">No dares available!</div>
 
       <style jsx>{`
         @keyframes slideIn {
