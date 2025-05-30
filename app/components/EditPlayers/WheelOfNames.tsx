@@ -118,15 +118,15 @@ export default function SpinCircle() {
     return (
         <div className="fixed inset-0 p-4 z-50 flex items-center justify-center">
             <div
-                onClick={Rotation} // Make entire wheel clickable here
+                onClick={Rotation}
                 className="relative h-[90vh] w-[90vh] flex items-center justify-center cursor-pointer"
+                style={{ clipPath: "circle(50% at 50% 50%)" }} // restrict clickable area to circle
             >
                 <div className="relative w-full h-full p-4">
                     <Doughnut
                         data={data}
                         options={{
                             rotation: rotationRadians,
-                            cutout: "67%",
                             plugins: {
                                 legend: { display: false },
                                 tooltip: { enabled: false },
@@ -145,10 +145,10 @@ export default function SpinCircle() {
 
                     <div
                         id="arrow-icon"
-                        className="absolute top-2 md:top-4 left-1/2 transform -translate-x-1/2 text-white rotate-180 pointer-events-none"
+                        className="absolute top-2 md:top-4 left-1/2 transform -translate-x-1/2 -translate-y-1/3  text-white rotate-180 pointer-events-none"
                     >
                         <svg
-                            className="h-10 w-10 text-white z-20"
+                            className="h-10 w-10 text-gray-200 z-20"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                             fill="white"
