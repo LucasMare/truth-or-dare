@@ -18,8 +18,9 @@ export default function DareButton({ onReady }: DareButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [dare, setDare] = useState('');
 
-  const [showNotification, setShowNotification] = useState(false);
   const [notificationKey, setNotificationKey] = useState(0);
+  const [showNotification, setShowNotification] = useState(false);
+
 
   // Calculate angle from bottom-left (0, screenHeight) to top-right (screenWidth, 0)
   const calculateBottomLeftToTopRightAngle = () => {
@@ -52,11 +53,9 @@ export default function DareButton({ onReady }: DareButtonProps) {
     const unusedDares = dares.filter((d) => !d.used);
 
     if (unusedDares.length === 0) {
-      if (!showNotification) {
-        setNotificationKey((prev) => prev + 1);
-        setShowNotification(true);
-      }
-      return; // Don't open modal if no dares
+      setNotificationKey((prev) => prev + 1);
+      setShowNotification(true);
+      return; 
     }
 
     const randomIndex = Math.floor(Math.random() * unusedDares.length);

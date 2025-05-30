@@ -30,7 +30,7 @@ export default function NoQuestionsNotification({ triggerKey, onClose }: Props) 
 
   return (
     <div
-      className="fixed top-19 right-4 w-80 bg-white text-black rounded-lg shadow-lg z-50 animate-slide-in"
+      className="fixed top-20 right-4 w-80 bg-white text-black rounded-lg shadow-lg z-50 animate-slide-in"
       style={{ overflow: 'hidden', border: '1px solid #ddd' }}
     >
       <div
