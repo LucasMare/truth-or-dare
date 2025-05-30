@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import Modal from "./Modal";
-import { usePromptsLists } from "./EditPrompts/PromptsLists";
-
+import React, { useState, useEffect } from 'react';
+import Modal from './Modal';
+import { usePromptsLists } from './EditPrompts/PromptsLists';
+import NoQuestionsNotification from './NoQuestionsAvailable';
 
 type TruthButtonProps = {
   onReady?: () => void;
@@ -11,68 +11,64 @@ type TruthButtonProps = {
 
 export default function TruthButton({ onReady }: TruthButtonProps) {
   const { truths, setTruths } = usePromptsLists();
-  const [angleDeg, setAngleDeg] = useState<number | null>(null);
-  const [translate, setTranslate] = useState<{ x: number; y: number } | null>(
-    null
-  );
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [truth, setTruth] = useState<string>("");
+  const [truth, setTruth] = useState('');
+
+  const [notificationKey, setNotificationKey] = useState(0);
+  const [showNotification, setShowNotification] = useState(false);
+
+  // Your existing diagonal angle stuff (if you want to keep it, otherwise remove)
+  const [angleDeg, setAngleDeg] = useState<number | null>(null);
+  const [translate, setTranslate] = useState<{ x: number; y: number } | null>(null);
 
   const calculateTopLeftToBottomRightAngle = () => {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-
-    const x1 = 0;
-    const y1 = 0;
-    const x2 = screenWidth;
-    const y2 = screenHeight;
-
-    const angle = Math.atan2(y2 - y1, x2 - x1);
-    return angle;
+    return Math.atan2(screenHeight, screenWidth);
   };
 
   useEffect(() => {
     const updateDiagonalPosition = () => {
       const angleRad = calculateTopLeftToBottomRightAngle();
       const angleDegrees = angleRad * (180 / Math.PI);
-      setAngleDeg(-angleDegrees); // rotate along bottom-right to top-left diagonal
+      setAngleDeg(-angleDegrees);
 
       const distance = window.innerWidth * 0.1;
       const dx = Math.cos(angleRad) * distance;
       const dy = Math.sin(angleRad) * distance;
 
-      setTranslate({ x: -dx, y: -dy }); // move along that diagonal
+      setTranslate({ x: -dx, y: -dy });
 
-      if (onReady) {
-        onReady();
-      }
+      if (onReady) onReady();
     };
 
     updateDiagonalPosition();
-    window.addEventListener("resize", updateDiagonalPosition);
-    return () => window.removeEventListener("resize", updateDiagonalPosition);
+    window.addEventListener('resize', updateDiagonalPosition);
+    return () => window.removeEventListener('resize', updateDiagonalPosition);
   }, [onReady]);
 
   const handleClick = () => {
     const unusedTruths = truths.filter((d) => !d.used);
+
     if (unusedTruths.length === 0) {
-      // All truth used, maybe reset or show a message
-      alert("No Questions available");
+      // Show the notification and reset timer by incrementing the key
+      setNotificationKey((prev) => prev + 1);
+      setShowNotification(true);
       return;
     }
+
     const randomIndex = Math.floor(Math.random() * unusedTruths.length);
     const chosenTruth = unusedTruths[randomIndex];
 
     setTruth(chosenTruth.text);
     setIsModalOpen(true);
 
-    // Mark the chosen truth as used in the truths list
-    const updatedTruths = truths.map((d) =>
-      d.text === chosenTruth.text ? { ...d, used: true } : d
+    setTruths(
+      truths.map((d) =>
+        d.text === chosenTruth.text ? { ...d, used: true } : d
+      )
     );
-    setTruths(updatedTruths);
-    setIsModalOpen(true);
   };
 
   const closeModal = () => setIsModalOpen(false);
@@ -81,30 +77,39 @@ export default function TruthButton({ onReady }: TruthButtonProps) {
 
   return (
     <>
+      {/* Notification */}
+      {showNotification && (
+        <NoQuestionsNotification
+          key={notificationKey} // important for resetting timer
+          triggerKey={notificationKey}
+          onClose={() => setShowNotification(false)}
+        />
+      )}
+
+      {/* Your fancy diagonal blue background with "TRUTH" text */}
       <div
         onClick={handleClick}
         className="fixed top-0 left-0 w-full h-screen flex items-center justify-center cursor-pointer"
         style={{
-          clipPath: "polygon(0 0, 100% 0, 0 100%)",
-          background: "radial-gradient(circle at top left, #3b82f6 0%, #2563eb 40%, #1e40af 80%)",
+          clipPath: 'polygon(0 0, 100% 0, 0 100%)',
+          background:
+            'radial-gradient(circle at top left, #3b82f6 0%, #2563eb 40%, #1e40af 80%)',
         }}
       >
-
-
-
         <span
           className="text-white font-semibold select-none"
           style={{
-            fontSize: "14rem", // 96px large font size
+            fontSize: '14rem',
             transform: `translate(${translate.x}px, ${translate.y}px) rotate(${angleDeg}deg)`,
-            display: "inline-block",
-            textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)", // adds a subtle drop shadow
+            display: 'inline-block',
+            textShadow: '4px 4px 8px rgba(0, 0, 0, 0.6)',
           }}
         >
           TRUTH
         </span>
       </div>
 
+      {/* Modal */}
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
