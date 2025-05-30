@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { usePromptsLists } from "./PromptsLists";
 
 type PromptsTableProps = {
@@ -8,8 +8,6 @@ type PromptsTableProps = {
 export default function DaresPromptsTable({ children }: PromptsTableProps) {
   const { dares, setDares } = usePromptsLists();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [showTopArrow, setShowTopArrow] = useState(false);
-  const [showBottomArrow, setShowBottomArrow] = useState(false);
   const [hoveredTrashIndex, setHoveredTrashIndex] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 

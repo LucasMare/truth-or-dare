@@ -266,7 +266,8 @@ export default function EditPlayersMenu({ onClose }: EditPlayersMenuProps) {
             }}
           >
             {players.length === 0 ? (
-              <span style={{ color: "white", fontSize: "1rem", fontStyle: "italic" }}>
+              <span style={{ color: "white", fontSize: "1rem", fontStyle: "italic", textShadow: "4px 4px 8px rgba(0, 0, 0, 0.6)", }}>
+                
                 No players available
               </span>
             ) : (
