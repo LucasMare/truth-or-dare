@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { usePromptsLists } from "./PromptsLists";
 
 type PromptsTableProps = {

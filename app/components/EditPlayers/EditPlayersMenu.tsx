@@ -171,6 +171,7 @@ export default function EditPlayersMenu({ onClose }: EditPlayersMenuProps) {
     })
   );
 
+  // eslint-disable-next-line no-console
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
     if (over && active.id !== over.id) {

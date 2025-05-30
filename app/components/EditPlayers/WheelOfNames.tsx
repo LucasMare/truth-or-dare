@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Chart, Plugin } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Plugin } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { usePlayers } from "../EditPlayers/PlayerListProvider"; // adjust path
 
@@ -80,6 +80,7 @@ export default function SpinCircle() {
             ctx.rotate(rotation); // Apply the rotation of the chart
 
             arcs.forEach((arc, i) => {
+                // eslint-disable-next-line no-console
                 const model = arc as any;
 
                 // Midpoint angle of the arc

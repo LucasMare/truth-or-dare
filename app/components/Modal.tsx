@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { usePlayers, PlayersProvider } from "@/app/components/EditPlayers/PlayerListProvider";
+import { usePlayers } from "@/app/components/EditPlayers/PlayerListProvider";
 import OpenWheelButton from "@/app/components/EditPlayers/WheelButton"; // adjust path if needed
 
 type ModalProps = {
@@ -23,6 +23,7 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // eslint-disable-next-line no-console
     let particles: any[] = [];
     let animationFrameId: number;
     let fireworkInterval: ReturnType<typeof setInterval>;
@@ -72,6 +73,7 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
       animationFrameId = requestAnimationFrame(animate);
     };
 
+    // eslint-disable-next-line no-console
     fireworkInterval = setInterval(createFirework, 600);
     animate();
 
@@ -89,11 +91,6 @@ export default function Modal({ isOpen, onClose, type, question }: ModalProps) {
   const typeColor = type === "truth" ? "text-blue-600" : "text-red-600";
   const bgColor = type === "truth" ? "bg-blue-100" : "bg-red-100";
   const promptColor = type === "truth" ? "text-blue-800" : "text-red-800";
-
-  const handleClose = () => {
-    onClose();
-    nextTurn();
-  };
 
   if (!isOpen) return null;
 

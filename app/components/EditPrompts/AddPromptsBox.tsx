@@ -42,10 +42,6 @@ export default function AddPromptsBox() {
     };
 
 
-    const handleClick = () => {
-        alert("Right button clicked!");
-    };
-
     return (
         <div style={{ position: "relative", width: "100%", height: "100%", paddingTop: "1rem" }}>
             <textarea
