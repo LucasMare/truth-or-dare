@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import AddPromptsMenu from "./AddPromptsMenu";
+import EditPromptsMenu from "./EditPromptsMenu";
 
-export default function AddPromptsButton() {
+export default function EditPromptsButton() {
   const [menuVisible, setMenuVisible] = useState(false);
 
   const handleClick = () => {
@@ -20,13 +20,13 @@ export default function AddPromptsButton() {
       {!menuVisible && (
         <button
           onClick={handleClick}
-          className="fixed cursor-pointer top-4 left-4 px-4 py-2 rounded-xl bg-white text-black font-semibold shadow-md transition duration-200 hover:bg-gray-200 hover:text-blue-600"
+          className=" cursor-pointer top-4 left-4 px-4 py-2 rounded-xl bg-white text-black font-semibold shadow-md transition duration-200 hover:bg-gray-200 hover:text-blue-600"
           style={{
             textShadow: "4px 4px 8px rgba(0, 0, 0, 0.4)",
             zIndex: 50,
           }}
         >
-          + Add Prompts
+          + Edit Prompts
         </button>
       )}
 
@@ -34,14 +34,14 @@ export default function AddPromptsButton() {
         <>
           {/* ⛱️ Backdrop */}
           <div
-            className="fixed inset-0 z-40 pointer-events-auto"
+            className="fixed inset-0 z-60 pointer-events-auto backdrop-blur-sm"
             style={{
               backgroundColor: "rgba(0, 0, 0, 0.5)", // semi-transparent black
             }}
           />
 
           {/* ✉️ Menu */}
-          <AddPromptsMenu onClose={handleClose} />
+              <EditPromptsMenu onClose={handleClose} />
         </>
       )}
     </>

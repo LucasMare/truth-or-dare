@@ -1,16 +1,23 @@
 "use client";
 
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Modal from "./Modal";
+import { usePromptsLists } from "./EditPrompts/PromptsLists";
+
 
 type DareButtonProps = {
   onReady?: () => void;
 };
 
 export default function DareButton({onReady}: DareButtonProps) {
+  const { dares, setDares } = usePromptsLists();
   const [angleDeg, setAngleDeg] = useState<number | null>(null);
   const [translate, setTranslate] = useState<{ x: number; y: number } | null>(
     null
   );
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [dare, setDare] = useState<string>("");
 
   // Calculate angle from bottom-left (0, screenHeight) to top-right (screenWidth, 0)
   const calculateBottomLeftToTopRightAngle = () => {
@@ -26,7 +33,7 @@ export default function DareButton({onReady}: DareButtonProps) {
     return angle;
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateDiagonalPosition = () => {
       const angleRad = calculateBottomLeftToTopRightAngle();
       const angleDegrees = angleRad * (180 / Math.PI);
@@ -49,12 +56,32 @@ export default function DareButton({onReady}: DareButtonProps) {
   }, [onReady]);
 
   const handleClick = () => {
-    alert("Dare button clicked!");
+    const unusedDares = dares.filter((d) => !d.used);
+    if (unusedDares.length === 0) {
+      // All dares used, maybe reset or show a message
+      alert("No Dares available");
+      return;
+    }
+    const randomIndex = Math.floor(Math.random() * unusedDares.length);
+    const chosenDare = unusedDares[randomIndex];
+
+    setDare(chosenDare.text);
+    setIsModalOpen(true);
+
+    // Mark the chosen dare as used in the dares list
+    const updatedDares = dares.map((d) =>
+      d.text === chosenDare.text ? { ...d, used: true } : d
+    );
+    setDares(updatedDares);
+    setIsModalOpen(true);
   };
+
+  const closeModal = () => setIsModalOpen(false);
 
   if (angleDeg === null || translate === null) return null;
 
   return (
+    <>
     <div
       onClick={handleClick}
       className="fixed top-0 left-0 w-full h-screen flex items-center justify-center cursor-pointer"
@@ -76,5 +103,12 @@ export default function DareButton({onReady}: DareButtonProps) {
         DARE
       </span>
     </div>
+    <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        type="dare"
+        question={dare}
+      />
+    </>
   );
 }

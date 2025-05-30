@@ -24,6 +24,7 @@ export default function OrComponent() {
           fontSize: "3rem",
           fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
           textShadow: "1px 1px 2px white",
+          marginTop: "-0.3rem",  // Push text up by 0.3rem
         }}
       >
         OR
